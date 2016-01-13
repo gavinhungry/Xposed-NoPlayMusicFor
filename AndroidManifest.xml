@@ -15,6 +15,6 @@
       android:value="Disable the 'Play music for' card in Google Play Music" />
     <meta-data
       android:name="xposedminversion"
-      android:value="54" />
+      android:value="60" />
   </application>
 </manifest>
