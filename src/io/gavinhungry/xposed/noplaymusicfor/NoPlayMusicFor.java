@@ -8,21 +8,17 @@ import de.robv.android.xposed.XC_MethodReplacement;
 
 public class NoPlayMusicFor implements IXposedHookLoadPackage {
   public void handleLoadPackage(final LoadPackageParam lpparam) throws Throwable {
-    if (lpparam.packageName.equals("com.google.android.music")) {
-      try {
-
-        XposedHelpers.findAndHookMethod("com.google.android.music.utils.ConfigUtils", lpparam.classLoader,
-          "isConciergeListenNowEnabled", new XC_MethodReplacement() {
-
-          @Override
-          protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
-            return false;
-          }
-        });
-
-      } catch(Throwable t) {
-        XposedBridge.log(t);
-      }
+    if (!lpparam.packageName.equals("com.google.android.music")) {
+      return;
     }
+
+    XposedHelpers.findAndHookMethod("com.google.android.music.utils.ConfigUtils", lpparam.classLoader,
+      "isConciergeListenNowEnabled", new XC_MethodReplacement() {
+
+      @Override
+      protected Object replaceHookedMethod(final MethodHookParam param) throws Throwable {
+        return false;
+      }
+    });
   }
 }
